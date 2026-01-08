@@ -5,7 +5,6 @@ public class BookUpdateRequest {
     private String author;
     private int purchasePrice;
     private String vendor;
-    private boolean isBorrowed;
 
     // 매개변수
     public BookUpdateRequest(String title, String author, int purchasePrice, String vendor) {
@@ -30,10 +29,6 @@ public class BookUpdateRequest {
 
     public String getVendor() {
         return vendor;
-    }
-
-    public boolean isBorrowed() {
-        return isBorrowed;
     }
 }
 

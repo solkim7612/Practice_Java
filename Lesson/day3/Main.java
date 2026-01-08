@@ -9,6 +9,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
+            System.out.println();
             System.out.println("*** 도서 관리 시스템 ***");
             System.out.println("1. 도서 등록");
             System.out.println("2. 도서 조회");

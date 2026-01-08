@@ -17,6 +17,14 @@ public class BookEntity {
         this.isBorrowed = isBorrowed;
     }
 
+    // update method1
+    public void update(BookUpdateRequest request) {
+        this.title = request.getTitle();
+        this.author = request.getAuthor();
+        this.purchasePrice = request.getPurchasePrice();
+        this.vendor = request.getVendor();
+    }
+
     // Setter
     public void setTitle(String title) {
         this.title = title;
