@@ -16,45 +16,41 @@ public class BookService {
     }
 
     // READ method
-    // repo에 해당 id의 entity 불러오기 -> entity를 response 형식으로 변환
-    public BookResponse read(Long id) {
+    // repo에 해당 id의 entity 불러오기 -> 해당 id 반환
+    public Long read(Long id) {
         BookEntity entity = bookrepo.get(id);
 
         if (entity == null) {
             throw new RuntimeException("해당 도서는 존재하지 않습니다.");
         }
 
-        return new BookResponse(entity);
+        return id;
     }
 
     // DELETE method
     // read method -> db에 해당 entity 제거 -> read method 반환
     public BookResponse delete(Long id) {
-        BookResponse deleteInfo=read(id);
+        BookEntity entity = bookrepo.get(read(id));
 
-        bookrepo.remove(id);
+        bookrepo.remove(read(id));
 
-        return deleteInfo;
+        return new BookResponse(entity);
     }
 
     // UPDATE method1 (title, author, purchasePrice, vendor)
     // read method -> 해당 id의 entity 불러오기 -> request 매개변수 entity에 set -> db에 저장
     public void update(Long id, BookUpdateRequest request) {
-        read(id);
-
-        BookEntity entity = bookrepo.get(id);
+        BookEntity entity = bookrepo.get(read(id));
 
         entity.update(request);
 
-        bookrepo.put(id, entity);
+        bookrepo.put(read(id), entity);
     }
 
     // UPDATE method2 (isBorrowed)
     // read method -> 해당 id의 entity 불러오기 -> entity의 borrow 상태 변경 -> db에 저장
     public void borrow(Long id) {
-        read(id);
-
-        BookEntity entity = bookrepo.get(id);
+        BookEntity entity = bookrepo.get(read(id));
 
         if (entity.isBorrowed() == true) {
             System.out.println("이미 대출 중입니다.");
@@ -62,7 +58,11 @@ public class BookService {
 
         entity.setBorrowed(true);
 
-        bookrepo.put(id, entity);
+        bookrepo.put(read(id), entity);
     }
 
+    public BookResponse show(Long id){
+        BookEntity entity=bookrepo.get(read(id));
+        return new BookResponse(entity);
+    }
 }

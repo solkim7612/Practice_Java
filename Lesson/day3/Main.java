@@ -44,7 +44,7 @@ public class Main {
                 Long id = Long.valueOf(scanner.nextLine());
 
                 try {
-                    BookResponse response = service.read(id);
+                    BookResponse response=service.show(id);
                     System.out.println("*** 조회내역 ***");
                     System.out.println("책제목: " + response.getTitle());
                     System.out.println("책저자: " + response.getAuthor());
@@ -75,7 +75,7 @@ public class Main {
                 Long id = Long.valueOf(scanner.nextLine());
 
                 try {
-                    BookResponse response = service.read(id);
+                    BookResponse response = service.show(id);
                     System.out.println("*** 수정전 내역 ***");
                     System.out.println("책제목: " + response.getTitle());
                     System.out.println("책저자: " + response.getAuthor());
