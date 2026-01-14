@@ -16,11 +16,11 @@ public class OrderEntity {
         this.cost = cost;
     }
 
-
     public void complete(){
         this.isReady=true;
     }
 
+    //Getter
     public Long getId() {
         return id;
     }

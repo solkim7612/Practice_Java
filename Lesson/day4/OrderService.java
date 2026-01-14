@@ -1,7 +1,9 @@
 package Lesson.day4;
 
+import java.util.Collection;
 import java.util.HashMap;
-import java.util.logging.Logger;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class OrderService {
 
@@ -17,29 +19,47 @@ public class OrderService {
     public OrderResponse getReceipt(Long id) {
         OrderEntity entity = repo.get(id);
 
-        String status;
-
-        if (entity.isReady()) {
-            status = "준비완료";
-        } else {
-            status = "준비중";
-        }
-
-        return new OrderResponse(
-                entity.getMenuName(),
-                entity.getQuantity(),
-                entity.getQuantity() * entity.getPrice(),
-                status
-        );
+        return new OrderResponse(entity);
     }
 
     public void completeOreder(Long id) {
         OrderEntity entity = repo.get(id);
 
         entity.complete();
-
-        repo.put(id, entity);
     }
 
+    //과제1: 모든 주문 내역 반환
+    public List<OrderResponse> getAllReceipts() {
+        Collection<OrderEntity> entities = repo.values();
+
+        return entities.stream()
+                .map(OrderResponse::new)
+                .toList();
+    }
+    // map: 객체 생성
+
+    //과제2: menuName 주문만 반환
+    public List<OrderResponse> findOrdersByMenuName(String menuName) {
+        return repo.values().stream()
+                .filter(entity -> entity.getMenuName().contains(menuName))
+                .map(OrderResponse::new)
+                .toList();
+    }
+    //filter: boolean true 값만 통과
+
+    //과제3: 모든 주문의 총 매출계산
+    public int calculateTotalRevenue() {
+        return repo.values().stream()
+                .mapToInt(entity -> entity.getQuantity() * entity.getPrice())
+                .sum();
+    }
+    //mapToInt: int로 변환
+
+    //과제4: '준비완료'된 주문 카운트
+    public long countCompletedOrders() {
+        return repo.values().stream()
+                .filter(OrderEntity::isReady)
+                .count();
+    }
 
 }

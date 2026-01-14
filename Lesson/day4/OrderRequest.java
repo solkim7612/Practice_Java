@@ -1,5 +1,6 @@
 package Lesson.day4;
 
+//post
 public class OrderRequest {
         private String menuName;
         private int quantity;

@@ -1,5 +1,6 @@
 package Lesson.day4;
 
+//get
 public class OrderResponse {
     private String menuName;
     private int quantity;
@@ -7,11 +8,11 @@ public class OrderResponse {
     private String status;
 
 
-    public OrderResponse(String menuName, int quantity, int totalPrice, String status){
-        this.menuName=menuName;
-        this.quantity=quantity;
-        this.totalPrice=totalPrice;
-        this.status=status;
+    public OrderResponse(OrderEntity entity){
+        this.menuName=entity.getMenuName();
+        this.quantity=entity.getQuantity();
+        this.totalPrice=entity.getPrice()*entity.getQuantity();
+        this.status=entity.isReady()? "준비완료": "준비중";
     }
 
 
@@ -29,5 +30,10 @@ public class OrderResponse {
 
     public String getStatus() {
         return status;
+    }
+
+    @Override
+    public String toString() {
+        return status+">>"+"메뉴: "+menuName+", 수량: "+quantity+", 총가격: "+totalPrice+"\n";
     }
 }
