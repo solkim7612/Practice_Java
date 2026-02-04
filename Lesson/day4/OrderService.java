@@ -3,6 +3,7 @@ package Lesson.day4;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class OrderService {
@@ -17,9 +18,15 @@ public class OrderService {
     }
 
     public OrderResponse getReceipt(Long id) {
-        OrderEntity entity = repo.get(id);
+//        ```
+//            // Optional 사용해서 id 를 찾고
+//            // map 을 사용해서 OrderResponse 로 바꾸고
+//            // orElseThrow 메서드를 사용해서 null 일 땐 RuntimeException 을 띄워보세요
+//            OrderEntity entity = repo.get(id);
+//        }
 
-        return new OrderResponse(entity);
+        return Optional.ofNullable(repo.get(id)).map(OrderResponse::new)
+                .orElseThrow(RuntimeException::new);
     }
 
     public void completeOreder(Long id) {
@@ -60,6 +67,8 @@ public class OrderService {
         return repo.values().stream()
                 .filter(OrderEntity::isReady)
                 .count();
+
+//                .filter(OrderEntity->OrderEntity.isReady())
     }
 
 }
