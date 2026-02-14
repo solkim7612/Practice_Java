@@ -25,7 +25,6 @@ public class MyLinkedQueue<T> implements MyQueue<T> {
             tail = newNode;
         } else {
             tail.next = newNode;
-            tail = newNode;
         }
     }
 
