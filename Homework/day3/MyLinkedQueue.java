@@ -22,10 +22,10 @@ public class MyLinkedQueue<T> implements MyQueue<T> {
         Node<T> newNode = new Node<>(data);
         if (head == null) {
             head = newNode;
-            tail = newNode;
         } else {
             tail.next = newNode;
         }
+        tail = newNode;
     }
 
     @Override
